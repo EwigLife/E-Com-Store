@@ -1,6 +1,8 @@
-# wordpress_app
+# EcomApp
 
-A new Flutter project.
+A Fully Functional E-Com Store for everybody who is using Woo-Com already.
+Just configure your api and your app is ready. 
+With Flutter we can edit the UI as we want it to. AMAZING YA!!!
 
 ## Getting Started
 
