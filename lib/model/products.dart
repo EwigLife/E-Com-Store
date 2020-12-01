@@ -11,7 +11,6 @@ class Product {
   List<Images> images;
   List<Categories> categories;
 
-
   Product({
     this.id,
     this.name,
@@ -35,22 +34,23 @@ class Product {
     salePrice = json['sale_price'];
 
     stockStatus = json['stock_status'];
-    if(json['categories'] != null) {
+    if (json['categories'] != null) {
       categories = List<Categories>();
-      json['categories'].forEach((v){
+      json['categories'].forEach((v) {
         categories.add(Categories.fromJson(v));
       });
     }
     if (json['images'] != null) {
       images = List<Images>();
-      json['images'].forEach((v){
+      json['images'].forEach((v) {
         images.add(Images.fromJson(v));
       });
     }
   }
-  calculateDiscount(){
+  calculateDiscount() {
     double regularPrice = double.parse(this.regularPrice);
-    double salePrice = this.salePrice != '' ? double.parse(this.salePrice) : regularPrice;
+    double salePrice =
+        this.salePrice != '' ? double.parse(this.salePrice) : regularPrice;
     double discount = regularPrice - salePrice;
     double disPercent = (discount / regularPrice) * 100;
 
@@ -58,32 +58,31 @@ class Product {
   }
 }
 
-  class Categories {
-     int id;
-     String name; 
+class Categories {
+  int id;
+  String name;
 
-     Categories({this.id, this.name});
+  Categories({this.id, this.name});
 
-     Categories.fromJson(Map<String, dynamic> json) {
-       id = json['id'];
-       name = json['name'];
-     }
+  Categories.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
 
-     Map<String, dynamic> toJson(){
-       final Map<String, dynamic> data = Map<String, dynamic>();
-       data['id'] = this.id;
-       data['name'] = this.name;
-     }
-    }
+  // ignore: missing_return
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+  }
+}
 
-    class Images{
-      String src;
+class Images {
+  String src;
 
-      Images({
-        this.src
-      });
+  Images({this.src});
 
-      Images.fromJson(Map<String, dynamic> json) {
-        src = json['src'];
-      }
-    }
+  Images.fromJson(Map<String, dynamic> json) {
+    src = json['src'];
+  }
+}

@@ -1,60 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:wordpress_app/widgets/widgetProductDetailPage.dart';
+import 'package:wordpress_app/model/products.dart';
+import 'package:wordpress_app/screens/basePage.dart';
+import 'package:wordpress_app/widgets/Widget_Product_Details.dart';
 
-class ProductDetailPage extends StatefulWidget {
+// ignore: must_be_immutable
+class ProductDetailPage extends BasePage {
+  ProductDetailPage({Key key, this.product}) : super(key: key);
+  Product product;
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailPageState extends BasePageState<ProductDetailPage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: WidgetProductDetailPage(),
-    );
-  }
-
-  Widget _buildAppBar() {
-    return AppBar(
-      centerTitle: true,
-      brightness: Brightness.dark,
-      elevation: 0,
-      backgroundColor: Colors.redAccent,
-      automaticallyImplyLeading: false,
-      title: Text(
-        'Product Detail Page',
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-      actions: [
-        Icon(
-          Icons.notifications_none,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Icon(
-          Icons.shopping_cart,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
-        SizedBox(
-          width: 10,
-        ),
-      ],
+  Widget pageUI() {
+    return ProductDetailsWidget(
+      data: this.widget.product,
     );
   }
 }

@@ -5,37 +5,35 @@ class LoginResponseModel {
   String message;
   Data data;
 
+  LoginResponseModel({
+    this.success,
+    this.statusCode,
+    this.code,
+    this.message,
+    this.data,
+  });
 
-LoginResponseModel({
-  this.success,
-  this.statusCode,
-  this.code,
-  this.message,
-  this.data,
-});
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
+    statusCode = json['statusCode'];
+    code = json['code'];
+    message = json['message'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  }
 
-LoginResponseModel.fromJson(Map<String, dynamic> json) {
-  success = json['success'];
-  statusCode = json['statusCode'];
-  code = json['code'];
-  message = json['message'];
-  data = json['data'] != null ? Data.fromJson(json['data']) : null;
-}
+// ignore: missing_return
+  Map<String, dynamic> tojson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['success'] = this.success;
+    data['statusCode'] = this.statusCode;
+    data['code'] = this.code;
+    data['message'] = this.message;
 
-Map<String, dynamic> tojson() {
-  final Map<String, dynamic> data = Map<String, dynamic>();
-  data['success'] = this.success;
-  data['statusCode'] = this.statusCode;
-  data['code'] = this.code;
-  data['message'] = this.message;
-
-
-  if(this.data != null) {
-    data['data'] = this.data.toJson();
+    if (this.data != null) {
+      data['data'] = this.data.toJson();
+    }
   }
 }
-}
-
 
 class Data {
   String token;
@@ -46,7 +44,6 @@ class Data {
   String lastName;
   String displayName;
 
-
   Data({
     this.token,
     this.id,
@@ -56,7 +53,6 @@ class Data {
     this.lastName,
     this.displayName,
   });
-
 
   Data.fromJson(Map<String, dynamic> json) {
     token = json['token'];
@@ -69,7 +65,7 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic> ();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['token'] = this.token;
     data['id'] = this.id;
     data['email'] = this.email;

@@ -7,6 +7,7 @@ import 'package:wordpress_app/model/products.dart';
 import 'package:wordpress_app/widgets/widgetProductCard.dart';
 import 'basePage.dart';
 
+// ignore: must_be_immutable
 class ProductPage extends BasePage {
   ProductPage({Key key, this.categoryID}) : super(key: key);
 
@@ -37,7 +38,8 @@ class _ProductPageState extends BasePageState<ProductPage> {
     productList.fetchProducts(_page);
 
     _scrollController.addListener(() {
-      if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         productList.setLoadingState(LoadMoreStatus.LOADING);
         productList.fetchProducts(++_page);
       }
@@ -48,10 +50,13 @@ class _ProductPageState extends BasePageState<ProductPage> {
   }
 
   _onSearchChange() {
-    var productList = Provider.of<ProductProvider>(context, listen: false,);
-    if(_debounce?.isActive?? false) _debounce.cancel();
+    var productList = Provider.of<ProductProvider>(
+      context,
+      listen: false,
+    );
+    if (_debounce?.isActive ?? false) _debounce.cancel();
 
-    _debounce = Timer(const Duration(milliseconds: 500),() {
+    _debounce = Timer(const Duration(milliseconds: 500), () {
       productList.resetStreams();
       productList.setLoadingState(LoadMoreStatus.INITIAL);
       productList.fetchProducts(_page, strSearch: _searchQuery.text);
@@ -69,7 +74,8 @@ class _ProductPageState extends BasePageState<ProductPage> {
         if (productsModel.allProducts != null &&
             productsModel.allProducts.length > 0 &&
             productsModel.getLoadMoreStatus() != LoadMoreStatus.INITIAL) {
-          return _buildList(productsModel.allProducts, productsModel.getLoadMoreStatus()== LoadMoreStatus.LOADING);  
+          return _buildList(productsModel.allProducts,
+              productsModel.getLoadMoreStatus() == LoadMoreStatus.LOADING);
         }
 
         return Center(
@@ -118,16 +124,16 @@ class _ProductPageState extends BasePageState<ProductPage> {
         children: [
           Flexible(
               child: TextField(
-                controller: _searchQuery,
+                  controller: _searchQuery,
                   decoration: InputDecoration(
-            prefixIcon: Icon(Icons.search),
-            hintText: 'Search',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide.none),
-            fillColor: Color(0Xffe6e6ec),
-            filled: true,
-          ))),
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Search',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: BorderSide.none),
+                    fillColor: Color(0Xffe6e6ec),
+                    filled: true,
+                  ))),
           SizedBox(
             width: 15,
           ),
@@ -138,7 +144,8 @@ class _ProductPageState extends BasePageState<ProductPage> {
             ),
             child: PopupMenuButton(
               onSelected: (sortBy) {
-                var productList = Provider.of<ProductProvider>(context, listen: false);
+                var productList =
+                    Provider.of<ProductProvider>(context, listen: false);
                 productList.resetStreams();
                 productList.setSortOrder(sortBy);
                 productList.fetchProducts(_page);
