@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:wordpress_app/api_service.dart';
 import 'package:wordpress_app/model/products.dart';
 import 'package:wordpress_app/screens/productDetailPage.dart';
-import '../api_service.dart';
 
 // ignore: must_be_immutable
-class WidgetHomeProducts extends StatefulWidget {
-  WidgetHomeProducts({
-    Key key,
+class WidgetRelatedProducts extends StatefulWidget {
+  WidgetRelatedProducts({
     this.labelName,
-    this.tagId,
+    this.products,
     this.data,
-  }) : super(key: key);
-
+  });
   String labelName;
-  String tagId;
+  List<int> products;
   Product data;
-
   @override
-  _WidgetHomeProductsState createState() => _WidgetHomeProductsState();
+  _WidgetRelatedProductsState createState() => _WidgetRelatedProductsState();
 }
 
-class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
+class _WidgetRelatedProductsState extends State<WidgetRelatedProducts> {
   APIService apiService;
 
   @override
   void initState() {
     apiService = APIService();
-
     super.initState();
   }
 
@@ -66,7 +61,7 @@ class _WidgetHomeProductsState extends State<WidgetHomeProducts> {
 
   Widget _productsList() {
     return FutureBuilder(
-      future: apiService.getProducts(tagName: this.widget.tagId),
+      future: apiService.getProducts(productsIDs: this.widget.products),
       builder: (BuildContext context, AsyncSnapshot<List<Product>> model) {
         if (model.hasData) {
           return _buildList(model.data);
