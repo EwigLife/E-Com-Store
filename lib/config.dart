@@ -9,4 +9,7 @@ class Config {
   static String productURL = 'products';
   static String specialofferTagId = '56';
   static String topsellingProductsTagId = '55';
+  static String addtoCartURL = 'addtocart';
+  static String cartURL = 'cart';
+  static String userId = '1';
 }
